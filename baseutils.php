@@ -272,6 +272,7 @@ function format_timestamp($timestamp, $format = '%Y-%m-%d %H:%M:%S')
   $str = strftime($format, $timestamp);
   $str = str_replace('X0', '', $str);
   $str = str_replace('X', '', $str);
+  $str = utf8_encode($str);
   return $str;
 }
 
