@@ -316,7 +316,7 @@ function renderFieldsTable($fields, $item, $itemDetails, $editForm = false, $cre
 function renderField($field, $item, $itemDetails, $editForm = false)
 {
   $fieldName = $field['name'];
-  $value = $item[$fieldName];
+  $value = array_value($item, $fieldName);
   $editing = $editForm && $field['editable'];
 
   if (!$editing && $value === null)
