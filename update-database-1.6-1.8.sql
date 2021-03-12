@@ -1,2 +1,3 @@
 ALTER TABLE event
-ADD (isHighPriority TINYINT);
+ADD (isHighPriority TINYINT,
+     isKidsEvent TINYINT);

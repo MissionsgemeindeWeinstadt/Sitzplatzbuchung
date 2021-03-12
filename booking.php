@@ -174,6 +174,11 @@ function handleSaveBookingAction()
       echo 'showErrorMsg("Der Name darf kein Semikolon enthalten.");';
       return;
     }
+    if (contains($surname, '|') or contains($lastname, '|'))
+    {
+      echo 'showErrorMsg("Der Name darf keinen senkrechten Strich enthalten.");';
+      return;
+    }
     $person = $surname . ',' . $lastname;
     if (in_array($person, $persons))
     {
@@ -235,8 +240,19 @@ function handleSaveBookingAction()
   # update client row
   if (!$asAdmin)
   {
+    $personGroups = explode('|', getClientValue('lastListOfPersons'), 2);
+    if ($event['isKidsEvent'] == 1)
+    {
+      if (count($personGroups) < 2)
+        $personGroups[] = '';
+      $personGroups[1] = $listOfPersons;
+    }
+    else
+    {
+      $personGroups[0] = $listOfPersons;
+    }
     $clientValues = [];
-    $clientValues['lastListOfPersons'] = $listOfPersons;
+    $clientValues['lastListOfPersons'] = implode('|', $personGroups);
     $clientValues['lastPhoneNumber'] = $phoneNumber;
     $clientValues['lastAddressLine1'] = $addressLine1;
     $clientValues['lastAddressLine2'] = $addressLine2;

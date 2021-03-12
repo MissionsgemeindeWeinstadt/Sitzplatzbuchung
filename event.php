@@ -505,7 +505,12 @@ function getEventFields()
   $field['visibleInList'] = false;
   $fields[] = $field;
 
+  $field = newBooleanField('isKidsEvent', 'Für Kinder');
+  $field['visibleInList'] = false;
+  $fields[] = $field;
+
   $field = newBooleanField('isHighPriority', 'Hohe Priorität');
+  $field['visibleInList'] = false;
   $fields[] = $field;
 
   $field = newBooleanField('canceled', 'Abgesagt');

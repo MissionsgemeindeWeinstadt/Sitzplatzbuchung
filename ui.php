@@ -407,7 +407,12 @@ function renderMainPageSaveBookingForm($event, $asAdmin, $persons = null, $booki
 
   if (!$asAdmin && $persons == null)
   {
-    $persons = explode(';', getClientValue('lastListOfPersons'));
+    $personGroups = explode('|', getClientValue('lastListOfPersons'), 2);
+    if ($event['isKidsEvent'] == 1 && count($personGroups) == 2)
+      $personGroup = $personGroups[1];
+    else
+      $personGroup = $personGroups[0];
+    $persons = explode(';', $personGroup);
   }
   $phoneNumber = getClientValue('lastPhoneNumber');
   $addressLine1 = getClientValue('lastAddressLine1');
