@@ -112,9 +112,8 @@ function renderMainPage()
   if (count($events) == 0)
   {
     echo html_open('div');
-    echo html_open('div', ['class' => 'textBlock framedBox']);
-    echo html_node('span', 'Veranstaltungen', ['class' => 'framedBoxTitle']);
-    echo 'Aktuell steht keine Veranstaltung zur Buchung bereit.';
+    echo html_open('div', ['class' => 'textBlock']);
+    echo 'Aktuell stehen keine Veranstaltungen zur Buchung bereit.';
     echo html_close('div');
     echo html_close('div');
   }
