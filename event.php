@@ -57,7 +57,7 @@ function getMainPageEvents($withVisitorCount = false, $withFreeSeatCount = false
 {
   $now = format_timestamp(time());
   $nowWithOffset = format_timestamp(time() - 60 * 30); # 30 minutes overrun after start of event
-  $items = db()->query_rows('SELECT * FROM event WHERE releaseTimestamp < ? AND startTimestamp > ? ORDER BY startTimestamp LIMIT 50', [$now, $nowWithOffset]);
+  $items = db()->query_rows('SELECT * FROM event WHERE releaseTimestamp < ? AND startTimestamp > ? ORDER BY isHighPriority DESC, startTimestamp LIMIT 50', [$now, $nowWithOffset]);
   foreach ($items as &$item)
   {
     decodeEvent($item, $withVisitorCount, $withFreeSeatCount);
@@ -503,6 +503,9 @@ function getEventFields()
 
   $field = newIntegerField('capacity6Seats', 'Anzahl 6er-Stuhlreihen');
   $field['visibleInList'] = false;
+  $fields[] = $field;
+
+  $field = newBooleanField('isHighPriority', 'Hohe Priorität');
   $fields[] = $field;
 
   $field = newBooleanField('canceled', 'Abgesagt');

@@ -53,6 +53,7 @@ CREATE TABLE event (
   bookingOpeningTimestamp TIMESTAMP NULL,
   bookingClosingTimestamp TIMESTAMP NULL,
   canceled TINYINT,
+  isHighPriority TINYINT,
   remark TEXT,
   insertTimestamp TIMESTAMP NULL,
   editClientId INT,
