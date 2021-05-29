@@ -207,7 +207,7 @@ function renderMainPageEvent($event, $booking)
       renderEventSeatInfo($event, $hasActiveBooking);
 
     if ($persons != null)
-      renderMainPageBookingStatus($persons, $bookingCanceled);
+      renderMainPageBookingStatus($event, $persons, $bookingCanceled);
 
     if (isBookingOpen($event))
     {
@@ -326,7 +326,7 @@ function renderEventSeatInfo($event, $hasActiveBooking = false)
 }
 
 
-function renderMainPageBookingStatus($persons, $bookingCanceled)
+function renderMainPageBookingStatus($event, $persons, $bookingCanceled)
 {
   echo html_open('div', ['class' => 'textBlock bookingStatus']);
   echo html_open('div');
@@ -357,9 +357,12 @@ function renderMainPageBookingStatus($persons, $bookingCanceled)
       echo html_close('ol');
     echo html_close('div');
 
-    $showFormScript = "event.target.parentNode.parentNode.parentNode.parentNode.classList.add('cancelBookingFormOpened');disableAutoReload();";
-    $button = html_button('Stornieren', ['class' => 'linkButton', 'onclick' => $showFormScript]);
-    echo html_node('div', $button, ['class' => 'cancelBookingFormPlaceholder']);
+    if (isBookingOpen($event))
+    {
+      $showFormScript = "event.target.parentNode.parentNode.parentNode.parentNode.classList.add('cancelBookingFormOpened');disableAutoReload();";
+      $button = html_button('Stornieren', ['class' => 'linkButton', 'onclick' => $showFormScript]);
+      echo html_node('div', $button, ['class' => 'cancelBookingFormPlaceholder']);
+    }
   }
 
   echo html_close('div');
